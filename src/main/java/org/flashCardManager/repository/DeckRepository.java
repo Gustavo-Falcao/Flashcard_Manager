@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface DeckRepository extends CrudRepository<Deck> {
     List<Deck> findByUserId(String userId);
+    boolean existsByUserIdAndName(String userId, String name);
 }

@@ -1,47 +1,32 @@
 package org.flashCardManager.model.entity;
 
-import java.time.LocalDate;
-import java.util.Objects;
-import java.util.UUID;
+public enum Context {
+    ADJECTIVE,
+    ADVERB,
+    FIGURATIVE,
+    FORMAL,
+    INFORMAL,
+    LITERAL,
+    NOUN,
+    PHRASE,
+    PREPOSITION,
+    SLANG,
+    VERB;
 
-public class Context {
-    private String id;
-    private String name;
-    private LocalDate creationDate;
-
-    public Context(){}
-
-    public Context(String name) {
-        setId(UUID.randomUUID().toString().substring(0,8));
-        setName(name);
-        setCreationDate(LocalDate.now());
+    public String toShow() {
+        return switch (this) {
+            case ADJECTIVE -> "Adjective";
+            case ADVERB -> "Adverb";
+            case FIGURATIVE -> "Figurative";
+            case FORMAL -> "Formal";
+            case INFORMAL -> "Informal";
+            case LITERAL -> "Literal";
+            case NOUN -> "Noun";
+            case PHRASE -> "Phrase";
+            case PREPOSITION -> "Preposition";
+            case SLANG -> "Slang";
+            case VERB -> "Verb";
+        };
     }
 
-    //Getters
-    public String getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public LocalDate getCreationDate() {
-        return creationDate;
-    }
-
-    //Setters
-    public void setId(String id) {
-        this.id = Objects.requireNonNull(id, "Id nao pode ser nulo");
-    }
-
-    public void setName(String name) {
-        Objects.requireNonNull(name, "Nome nao pode ser nulo");
-        if(name.trim().length() < 2) throw new IllegalArgumentException("Nome deve ter pelo menos 2 caracteres");
-        this.name = name;
-    }
-
-    public void setCreationDate(LocalDate creationDate) {
-        this.creationDate = Objects.requireNonNull(creationDate, "Data de criacao é obrigatória");
-    }
 }

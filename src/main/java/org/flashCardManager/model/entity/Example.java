@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
 
-public class Example {
+public class Example implements Identifiable {
     private String id;
     private String meaningId;
     private String text;
@@ -28,11 +28,12 @@ public class Example {
     }
 
     //Getters
+    @Override
     public String getId() {
         return id;
     }
 
-    public String getMeaningIdP(){
+    public String getMeaningId(){
         return  meaningId;
     };
 

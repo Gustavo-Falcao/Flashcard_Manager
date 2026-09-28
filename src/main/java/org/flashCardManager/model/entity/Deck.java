@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
 
-public class Deck {
+public class Deck implements Identifiable {
     private String id;
     private String userId;
     private String name;
@@ -14,12 +14,13 @@ public class Deck {
 
     public Deck(String userId, String name) {
         setId(UUID.randomUUID().toString().substring(0,8));
-
+        setUserId(userId);
         setName(name);
         setCreationDate(LocalDate.now());
     }
 
     //Getters
+    @Override
     public String getId() {
         return id;
     }
@@ -36,7 +37,7 @@ public class Deck {
         return creationDate;
     }
 
-    //Setters
+    //Private Setters
     private void setId(String id) {
         this.id = Objects.requireNonNull(id, "Id do deck não pode ser nulo.");
     }
@@ -53,5 +54,14 @@ public class Deck {
 
     private void setCreationDate(LocalDate creationDate) {
         this.creationDate = Objects.requireNonNull(creationDate, "Data criação não pode ser nula.");
+    }
+
+    //Public Setters
+    public void changeUserId(String userId) {
+        setUserId(userId);
+    }
+
+    public void changeName(String name) {
+        setName(name);
     }
 }

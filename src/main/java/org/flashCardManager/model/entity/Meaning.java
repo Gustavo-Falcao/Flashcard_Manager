@@ -1,9 +1,11 @@
 package org.flashCardManager.model.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
-public class Meaning {
+public class Meaning implements Identifiable {
     private String id;
     private String cardId;
     private String definition;
@@ -19,17 +21,15 @@ public class Meaning {
     public Meaning(){}
 
     public Meaning(
-            String id,
             String cardId,
             String definition,
             LocalDate nextReviewDate,
             int interval,
             int repetitions,
             float easeFactor,
-            PracticeMode practiceMode,
-            LocalDate creationDate
+            PracticeMode practiceMode
     ) {
-        setId(id);
+        setId(UUID.randomUUID().toString().substring(0,8));
         setCardId(cardId);
         setDefinition(definition);
         setNextReviewDate(nextReviewDate);
@@ -37,10 +37,11 @@ public class Meaning {
         setRepetitions(repetitions);
         setEaseFactor(easeFactor);
         setPracticeMode(practiceMode);
-        setCreationDate(creationDate);
+        setCreationDate(LocalDate.now());
     }
 
     //Getters
+    @Override
     public String getId() {
         return id;
     }
@@ -119,5 +120,20 @@ public class Meaning {
 
     private void setCreationDate(LocalDate creationDate) {
         this.creationDate = Objects.requireNonNull(creationDate, "Data de criacao é obrigatória");
+    }
+
+    @Override
+    public String toString() {
+        return "Meaning{" +
+                "id='" + id + '\'' +
+                ", cardId='" + cardId + '\'' +
+                ", definition='" + definition + '\'' +
+                ", nextReviewDate=" + nextReviewDate +
+                ", interval=" + interval +
+                ", repetitions=" + repetitions +
+                ", easeFactor=" + easeFactor +
+                ", practiceMode=" + practiceMode +
+                ", creationDate=" + creationDate +
+                '}';
     }
 }

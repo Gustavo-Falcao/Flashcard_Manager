@@ -5,9 +5,9 @@ import java.util.Optional;
 
 public interface CrudRepository<T> {
 
-    void save(T entity);
+    T save(T entity);
     Optional<T> findById(String id);
     List<T> findAll();
-    void update(T entity);
+    T update (T entity);
     void deleteById(String id);
 }

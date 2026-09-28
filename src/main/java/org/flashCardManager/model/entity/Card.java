@@ -4,11 +4,11 @@ import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
 
-public class Card {
+public class Card implements Identifiable {
     private String id;
     private String deckId;
     private String name;
-    private String contextId;
+    private Context context;
     private String synonym;
     private String phonetic;
     private LocalDate creationDate;
@@ -16,20 +16,21 @@ public class Card {
     public Card(){}
 
     private Card(Builder builder) {
-        this(builder.deckId, builder.name, builder.contextId, builder.synonym, builder.phonetic);
+        this(builder.deckId, builder.name, builder.context, builder.synonym, builder.phonetic);
     }
 
-    private Card(String deckId, String name, String contextId, String synonym, String phonetic) {
+    private Card(String deckId, String name, Context context, String synonym, String phonetic) {
         setId(UUID.randomUUID().toString().substring(0,8));
         setDeckId(deckId);
         setName(name);
-        setContextId(contextId);
+        setContext(context);
         setSynonym(synonym);
         setPhonetic(phonetic);
         setCreationDate(LocalDate.now());
     }
 
     //Getters
+    @Override
     public String getId() {
         return id;
     }
@@ -42,8 +43,8 @@ public class Card {
         return name;
     }
 
-    public String getContextId() {
-        return contextId;
+    public Context getContext() {
+        return context;
     }
 
     public String getSynonym() {
@@ -74,9 +75,9 @@ public class Card {
         this.name = name;
     }
 
-    private void setContextId(String contextId) {
-        Objects.requireNonNull(contextId, "ContextId nao pode ser nulo");
-        this.contextId = contextId;
+    private void setContext(Context context) {
+        Objects.requireNonNull(context, "Context nao pode ser nulo");
+        this.context = context;
     }
 
     private void setSynonym(String synonym) {
@@ -97,7 +98,7 @@ public class Card {
     public static class Builder {
         private String deckId;
         private String name;
-        private String contextId;
+        private Context context;
         private String synonym;
         private String phonetic;
 
@@ -111,8 +112,8 @@ public class Card {
             return this;
         }
 
-        public Builder contextId(String contextId) {
-            this.contextId = contextId;
+        public Builder contextId(Context context) {
+            this.context = context;
             return this;
         }
 
