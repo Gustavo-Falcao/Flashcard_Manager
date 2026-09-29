@@ -1,16 +1,15 @@
 package org.flashCardManager.model.entity;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
 public class Meaning implements Identifiable {
     private String id;
     private String cardId;
     private String definition;
-    //contexts
-    //examples
+    private Set<Context> contexts;
     private LocalDate nextReviewDate;
     private int interval;
     private int repetitions;
@@ -23,20 +22,17 @@ public class Meaning implements Identifiable {
     public Meaning(
             String cardId,
             String definition,
-            LocalDate nextReviewDate,
-            int interval,
-            int repetitions,
-            float easeFactor,
-            PracticeMode practiceMode
+            Set<Context> contexts
     ) {
         setId(UUID.randomUUID().toString().substring(0,8));
         setCardId(cardId);
         setDefinition(definition);
-        setNextReviewDate(nextReviewDate);
-        setInterval(interval);
-        setRepetitions(repetitions);
-        setEaseFactor(easeFactor);
-        setPracticeMode(practiceMode);
+        setContexts(contexts);
+        setNextReviewDate(LocalDate.now());
+        setInterval(0);
+        setRepetitions(0);
+        setEaseFactor(2.5f);
+        setPracticeMode(PracticeMode.PRACTICE);
         setCreationDate(LocalDate.now());
     }
 
@@ -52,6 +48,10 @@ public class Meaning implements Identifiable {
 
     public String getDefinition() {
         return definition;
+    }
+
+    public Set<Context> getContexts() {
+        return contexts;
     }
 
     public LocalDate getNextReviewDate() {
@@ -95,6 +95,15 @@ public class Meaning implements Identifiable {
         this.definition = definition;
     }
 
+    private void setContexts(Set<Context> contexts) {
+        Objects.requireNonNull(contexts, "Contexts nao pode ser nulo");
+
+        if(contexts.contains(null)) {
+            throw new IllegalArgumentException("Contexts nao pode ter valores nulos");
+        }
+        this.contexts = Set.copyOf(contexts);
+    }
+
     private void setNextReviewDate(LocalDate nextReviewDate) {
         Objects.requireNonNull(nextReviewDate, "NextReviewDate nao pode ser nulo");
         if(nextReviewDate.isBefore(LocalDate.now()))
@@ -120,6 +129,14 @@ public class Meaning implements Identifiable {
 
     private void setCreationDate(LocalDate creationDate) {
         this.creationDate = Objects.requireNonNull(creationDate, "Data de criacao é obrigatória");
+    }
+
+    public void changeDefinition(String definition) {
+        setDefinition(definition);
+    }
+
+    public void changeContexts(Set<Context> contexts) {
+        setContexts(contexts);
     }
 
     @Override

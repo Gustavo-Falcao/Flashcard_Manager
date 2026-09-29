@@ -83,6 +83,18 @@ public class Example implements Identifiable {
         this.creationDate = Objects.requireNonNull(creationDate, "Data de criacao é obrigatória");
     }
 
+    public void changeText(String text) {
+        setText(text);
+    }
+
+    public void changeTargetToBeHidden(String targetToBeHidden) {
+        setTargetToBeHidden(targetToBeHidden);
+    }
+
+    public void changeVerbTense(VerbTense verbTense) {
+        setVerbTense(verbTense);
+    }
+
     //Builder
     public static class Builder {
         private String meaningId;

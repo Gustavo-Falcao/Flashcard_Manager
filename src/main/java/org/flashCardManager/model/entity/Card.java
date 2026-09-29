@@ -94,6 +94,26 @@ public class Card implements Identifiable {
         this.creationDate = Objects.requireNonNull(creationDate, "Data de criacao é obrigatória");
     }
 
+    public void changeDeckId(String deckId) {
+        setDeckId(deckId);
+    }
+
+    public void changeName(String name) {
+        setName(name);
+    }
+
+    public void changeContext(Context context) {
+        setContext(context);
+    }
+
+    public void changeSynonym(String synonym) {
+        setSynonym(synonym);
+    }
+
+    public void changePhonetic(String phonetic) {
+        setPhonetic(phonetic);
+    }
+
     //Builder
     public static class Builder {
         private String deckId;
@@ -112,7 +132,7 @@ public class Card implements Identifiable {
             return this;
         }
 
-        public Builder contextId(Context context) {
+        public Builder context(Context context) {
             this.context = context;
             return this;
         }

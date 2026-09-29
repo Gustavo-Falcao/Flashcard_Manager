@@ -17,4 +17,11 @@ public class CardJsonRepository extends AbstractJsonRepository<Card> implements 
                 .filter(card -> card.getDeckId().equals(deckId))
                 .toList();
     }
+
+    @Override
+    public boolean existsById(String id) {
+        return findAll()
+                .stream()
+                .anyMatch(card -> card.getId().equals(id));
+    }
 }

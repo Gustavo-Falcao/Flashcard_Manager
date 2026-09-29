@@ -8,6 +8,7 @@ public interface CrudRepository<T> {
     T save(T entity);
     Optional<T> findById(String id);
     List<T> findAll();
+    boolean existsById(String id);
     T update (T entity);
     void deleteById(String id);
 }

@@ -33,4 +33,11 @@ public class UserJsonRepository extends AbstractJsonRepository<User> implements 
                         user.getEmail().equals(email) &&
                         !user.getId().equals(idToIgnore));
     }
+
+    @Override
+    public boolean existsById(String id) {
+        return findAll()
+                .stream()
+                .anyMatch(user -> user.getId().equals(id));
+    }
 }

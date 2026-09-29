@@ -17,4 +17,11 @@ public class ExampleJsonRepository extends AbstractJsonRepository<Example> imple
                 .filter(example -> example.getMeaningId().equals(meaningId))
                 .toList();
     }
+
+    @Override
+    public boolean existsById(String id) {
+        return findAll()
+                .stream()
+                .anyMatch(example -> example.getId().equals(id));
+    }
 }

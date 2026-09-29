@@ -17,4 +17,11 @@ public class MeaningJsonRepository extends AbstractJsonRepository<Meaning> imple
                 .filter(meaning -> meaning.getCardId().equals(cardId))
                 .toList();
     }
+
+    @Override
+    public boolean existsById(String id) {
+        return findAll()
+                .stream()
+                .anyMatch(meaning -> meaning.getId().equals(id));
+    }
 }

@@ -27,4 +27,11 @@ public class DeckJsonRepository extends AbstractJsonRepository<Deck> implements 
                         deck.getUserId().equals(userId) && deck.getName().equals(name)
                 );
     }
+
+    @Override
+    public boolean existsById(String id) {
+        return findAll()
+                .stream()
+                .anyMatch(deck -> deck.getId().equals(id));
+    }
 }

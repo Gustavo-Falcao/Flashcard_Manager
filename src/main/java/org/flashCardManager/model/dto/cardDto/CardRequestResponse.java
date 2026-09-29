@@ -1,4 +1,13 @@
 package org.flashCardManager.model.dto.cardDto;
 
-public record CardRequestResponse() {
+import org.flashCardManager.model.entity.Context;
+
+public record CardRequestResponse(
+        String id,
+        String deckId,
+        String name,
+        Context context,
+        String synonym,
+        String phonetic
+) {
 }

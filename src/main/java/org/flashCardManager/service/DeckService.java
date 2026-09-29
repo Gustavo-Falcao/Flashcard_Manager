@@ -52,7 +52,7 @@ public class DeckService {
     public List<DeckResponse> getByUserId(String userId) {
         return deckRepository.findByUserId(userId)
                 .stream()
-                .map(deck -> toDeckResponse(deck))
+                .map(this::toDeckResponse)
                 .toList();
     }
 
