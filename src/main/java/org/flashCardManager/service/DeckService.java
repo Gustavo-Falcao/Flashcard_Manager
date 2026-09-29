@@ -34,10 +34,12 @@ public class DeckService {
         return toDeckResponse(deckRepository.update(deck));
     }
 
-    public Deck getById(String id) {
-        return deckRepository.findById(id)
+    public DeckResponse findById(String id) {
+        Deck deck = deckRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Deck not found"));
         //mudar para exception especifica
+
+        return toDeckResponse(deck);
     }
 
     private DeckResponse toDeckResponse(Deck deck) {

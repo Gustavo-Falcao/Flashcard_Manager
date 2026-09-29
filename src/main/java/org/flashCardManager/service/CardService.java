@@ -60,7 +60,7 @@ public class CardService {
         return toCardRequestResponse(cardRepository.update(card));
     }
 
-    public CardRequestResponse getById(String id) {
+    public CardRequestResponse findById(String id) {
         Card card = cardRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Card not found"));
         //mudar para exception especifica

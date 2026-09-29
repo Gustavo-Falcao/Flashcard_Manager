@@ -50,7 +50,7 @@ public class UserService {
         return toUserResponse(userRepository.update(user));
     }
 
-    public UserResponse getById(String id) {
+    public UserResponse findById(String id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Deck not found"));
         //mudar para exception especifica

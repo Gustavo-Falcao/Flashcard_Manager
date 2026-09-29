@@ -44,7 +44,7 @@ public class MeaningService {
         return toMeaningRequestResponse(meaningRepository.update(meaning));
     }
 
-    public MeaningRequestResponse getById(String id) {
+    public MeaningRequestResponse findById(String id) {
         Meaning meaning = meaningRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Meaning not found"));
         //mudar para exception especifica

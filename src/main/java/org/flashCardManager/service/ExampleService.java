@@ -46,7 +46,7 @@ public class ExampleService {
         return toExampleRequestResponse(exampleRepository.update(example));
     }
 
-    public ExampleRequestResponse getById(String id) {
+    public ExampleRequestResponse findById(String id) {
         Example example = exampleRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Example not found"));
         //mudar para exception especifica
