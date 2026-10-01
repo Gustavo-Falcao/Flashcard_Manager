@@ -1,5 +1,7 @@
 package org.flashCardManager.model.entity;
 
+import org.flashCardManager.exceptions.ValidationException;
+
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
@@ -51,15 +53,14 @@ public class User implements Identifiable {
 
     private void setName(String name) {
         Objects.requireNonNull(name, "Nome nao pode ser nulo");
-        if(name.length() < 3) throw new IllegalArgumentException("Nome deve ter 3 ou mais caracteres");
+        if(name.length() < 3) throw new ValidationException("Nome deve ter 3 ou mais caracteres");
         this.name = name;
     }
 
     private void setEmail(String email) {
         Objects.requireNonNull(email, "Email nao pode ser nulo");
-        if(email.matches("^[a-z._0-9+-]+@[a-z]{3,}+\\.[a-z]{2,}$")) {
-            throw new IllegalArgumentException("Formato de email invalido");
-            //mudar para exception especifica
+        if(!email.matches("^[a-z._0-9+-]+@[a-z]{3,}+\\.[a-z]{2,}$")) {
+            throw new ValidationException("Formato de email invalido");
         }
         this.email = email;
     }
@@ -67,8 +68,7 @@ public class User implements Identifiable {
     private void setPassword(String password) {
         Objects.requireNonNull(password, "Senha nao pode ser nula");
         if(!password.matches("^(?=.*[A-Z])(?=.*\\d).{8,}$")) {
-            throw new IllegalArgumentException("Formato de senha invalido");
-            //mudar para exception especifica
+            throw new ValidationException("Formato de senha invalido");
         }
         this.password = password;
     }

@@ -7,7 +7,7 @@ import java.util.List;
 
 public class CardJsonRepository extends AbstractJsonRepository<Card> implements CardRepository {
     public CardJsonRepository() {
-        super("src/main/java/org.flashCardManager/db/cards.json");
+        super("db/cards.json", Card.class);
     }
 
     @Override

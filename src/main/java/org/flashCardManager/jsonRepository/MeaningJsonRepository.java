@@ -7,7 +7,7 @@ import java.util.List;
 
 public class MeaningJsonRepository extends AbstractJsonRepository<Meaning> implements MeaningRepository {
     public MeaningJsonRepository() {
-        super("src/main/java/org.flashCardManager/db/meanings.json");
+        super("db/meanings.json", Meaning.class);
     }
 
     @Override

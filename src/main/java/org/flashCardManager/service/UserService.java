@@ -1,11 +1,11 @@
 package org.flashCardManager.service;
 
 
+import org.flashCardManager.mapper.UserMapper;
 import org.flashCardManager.model.dto.userDto.UserRequestCreate;
 import org.flashCardManager.model.dto.userDto.UserRequestUpdate;
 import org.flashCardManager.model.dto.userDto.UserResponse;
 import org.flashCardManager.model.entity.User;
-import org.flashCardManager.repository.DeckRepository;
 import org.flashCardManager.repository.UserRepository;
 
 public class UserService {
@@ -21,16 +21,9 @@ public class UserService {
             //mudar para exception especifica
         }
 
-        User user = new User(userRequestCreate.name(),
-                userRequestCreate.email(),
-                userRequestCreate.password()
-        );
+        User user = UserMapper.toEntity(userRequestCreate);
 
-        return toUserResponse(userRepository.save(user));
-    }
-
-    private UserResponse toUserResponse(User user) {
-        return new UserResponse(user.getId(), user.getName(), user.getEmail());
+        return UserMapper.toUserResponse(userRepository.save(user));
     }
 
     public UserResponse update(UserRequestUpdate userRequestUpdate) {
@@ -47,7 +40,7 @@ public class UserService {
         user.changeEmail(userRequestUpdate.email());
         user.changePassword(userRequestUpdate.password());
 
-        return toUserResponse(userRepository.update(user));
+        return UserMapper.toUserResponse(userRepository.update(user));
     }
 
     public UserResponse findById(String id) {
@@ -55,7 +48,7 @@ public class UserService {
                 .orElseThrow(() -> new IllegalArgumentException("Deck not found"));
         //mudar para exception especifica
 
-        return toUserResponse(user);
+        return UserMapper.toUserResponse(user);
     }
 
     public void deleteById(String id) {

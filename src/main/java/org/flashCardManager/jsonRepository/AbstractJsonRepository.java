@@ -3,8 +3,11 @@ package org.flashCardManager.jsonRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import org.flashCardManager.exceptions.NotFoundException;
+import org.flashCardManager.exceptions.PersistenceException;
 import org.flashCardManager.model.entity.Identifiable;
 import org.flashCardManager.repository.CrudRepository;
+import org.flashCardManager.util.JacksonUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,9 +18,11 @@ import java.util.Optional;
 public abstract class AbstractJsonRepository <T extends Identifiable> implements CrudRepository<T> {
 
     protected final String filePath;
+    private final Class<T> entityClass;
 
-    protected AbstractJsonRepository(String filePath) {
+    protected AbstractJsonRepository(String filePath, Class<T> entityClass) {
         this.filePath = filePath;
+        this.entityClass = entityClass;
     }
 
     @Override
@@ -66,17 +71,15 @@ public abstract class AbstractJsonRepository <T extends Identifiable> implements
         );
 
         if (!removed) {
-            //mudar para exception especifica
-            throw new IllegalArgumentException(
-                    "Entidade não encontrada."
-            );
+            throw new NotFoundException("Entidade não encontrada.");
         }
 
         writeFile(entities);
     }
 
     protected List<T> readFile() {
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = JacksonUtil.getObjectMapper();
+
         File file = new File(filePath);
 
         if(!file.exists() || file.length() == 0) {
@@ -84,23 +87,29 @@ public abstract class AbstractJsonRepository <T extends Identifiable> implements
         }
 
         try {
-            return mapper.readValue(file, new TypeReference<List<T>>() {});
+            return mapper.readValue(
+                    file,
+                    mapper
+                        .getTypeFactory()
+                        .constructCollectionType(
+                            List.class,
+                            entityClass
+                        )
+                    );
         } catch (IOException e) {
-            System.out.println("Erro ao ler o arquivo");
-            return new ArrayList<>();
+           throw new PersistenceException("Erro ao ler o arquivo");
         }
     }
 
     protected void writeFile(List<T> entities) {
-        ObjectMapper mapper = new ObjectMapper();
-        File file = new File(filePath);
+        ObjectMapper mapper = JacksonUtil.getObjectMapper();
 
-        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+        File file = new File(filePath);
 
         try {
             mapper.writeValue(file, entities);
         } catch (IOException e) {
-            System.out.println("Erro ao salvar no arquivo");
+            throw new PersistenceException("Erro ao persistir dados");
         }
     }
 }

@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public class UserJsonRepository extends AbstractJsonRepository<User> implements UserRepository {
     public UserJsonRepository() {
-        super("src/main/java/org.flashCardManager/db/users.json");
+        super("db/users.json", User.class);
     }
 
     @Override

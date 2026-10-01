@@ -8,7 +8,7 @@ import java.util.List;
 public class DeckJsonRepository extends AbstractJsonRepository<Deck> implements DeckRepository {
 
     public DeckJsonRepository() {
-        super("src/main/java/org.flashCardManager/db/decks.json");
+        super("db/decks.json", Deck.class);
     }
 
     @Override

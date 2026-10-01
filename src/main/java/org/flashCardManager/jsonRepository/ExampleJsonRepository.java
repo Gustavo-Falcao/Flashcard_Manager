@@ -7,7 +7,7 @@ import java.util.List;
 
 public class ExampleJsonRepository extends AbstractJsonRepository<Example> implements ExampleRepository {
     public ExampleJsonRepository() {
-        super("src/main/java/org.flashCardManager/db/examples.json");
+        super("db/examples.json", Example.class);
     }
 
     @Override
