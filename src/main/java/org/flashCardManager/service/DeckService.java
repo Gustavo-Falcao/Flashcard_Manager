@@ -1,5 +1,6 @@
 package org.flashCardManager.service;
 
+import org.flashCardManager.exceptions.NotFoundException;
 import org.flashCardManager.model.dto.deckDto.DeckRequestCreate;
 import org.flashCardManager.model.dto.deckDto.DeckRequestUpdate;
 import org.flashCardManager.model.dto.deckDto.DeckResponse;
@@ -25,8 +26,7 @@ public class DeckService {
 
     public DeckResponse update(DeckRequestUpdate deckRequest) {
         Deck deck = deckRepository.findById(deckRequest.id())
-                .orElseThrow(() -> new IllegalArgumentException("Deck not found"));
-        //mudar para exception especifica
+                .orElseThrow(() -> new NotFoundException("Deck not found"));
 
         deck.changeUserId(deckRequest.userId());
         deck.changeName(deckRequest.name());
@@ -36,8 +36,7 @@ public class DeckService {
 
     public DeckResponse findById(String id) {
         Deck deck = deckRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Deck not found"));
-        //mudar para exception especifica
+                .orElseThrow(() -> new NotFoundException("Deck not found"));
 
         return toDeckResponse(deck);
     }

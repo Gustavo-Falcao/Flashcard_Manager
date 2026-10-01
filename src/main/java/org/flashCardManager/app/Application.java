@@ -21,16 +21,19 @@ public class Application {
     private final UserRepository userRepository;
 
     //Instancias Deck
+    private final DeckApp deckApp;
     private final DeckController deckController;
     private final DeckService deckService;
     private final DeckRepository deckRepository;
 
     //Instancias Card
+    private final CardApp cardApp;
     private final CardController cardController;
     private final CardService cardService;
     private final CardRepository cardRepository;
 
     //Instancias Meaning
+    private final MeaningApp meaningApp;
     private final MeaningController meaningController;
     private final MeaningService meaningService;
     private final MeaningRepository meaningRepository;
@@ -75,7 +78,10 @@ public class Application {
         exampleController = new ExampleController(exampleService);
         authController = new AuthController(authService);
 
-        userApp = new UserApp(userController);
+        meaningApp = new MeaningApp(meaningController);
+        cardApp = new CardApp(cardController, meaningApp);
+        deckApp = new DeckApp(deckController, cardApp);
+        userApp = new UserApp(userController, deckApp);
     }
 
     public void runApplication() {
@@ -102,10 +108,11 @@ public class Application {
         String password = InputHelper.lerString("Digite a senha: ");
 
         Result<UserResponse> result = authController.authenticate(new UserRequestLogin(email, password));
+
         if(result.success()) {
             userApp.acoesUser(result.data());
         } else {
-            ErrorDetailsView.show(result);
+            ErrorDetailsView.show(result.errorType(), result.errorMessage());
         }
     }
 
@@ -115,12 +122,12 @@ public class Application {
         String password = InputHelper.lerString("Digite uma senha: ");
 
         Result<UserResponse> result = userController.create(new UserRequestCreate(name, email, password));
+
         if(result.success()) {
             userApp.acoesUser(result.data());
         } else {
-            ErrorDetailsView.show(result);
+            ErrorDetailsView.show(result.errorType(), result.errorMessage());
         }
     }
-
 
 }

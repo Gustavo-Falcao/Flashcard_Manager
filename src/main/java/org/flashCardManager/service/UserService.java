@@ -1,6 +1,8 @@
 package org.flashCardManager.service;
 
 
+import org.flashCardManager.exceptions.NotFoundException;
+import org.flashCardManager.exceptions.ValidationException;
 import org.flashCardManager.mapper.UserMapper;
 import org.flashCardManager.model.dto.userDto.UserRequestCreate;
 import org.flashCardManager.model.dto.userDto.UserRequestUpdate;
@@ -27,18 +29,26 @@ public class UserService {
     }
 
     public UserResponse update(UserRequestUpdate userRequestUpdate) {
-        User user = userRepository.findById(userRequestUpdate.id())
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
-        //mudar para exception especifica
+        User user = userRepository.findById(userRequestUpdate.getId())
+                .orElseThrow(() -> new NotFoundException("User not found"));
 
-        if(userRepository.existsByEmail(userRequestUpdate.email(), userRequestUpdate.id())) {
-            throw new IllegalArgumentException("Email ja cadastrado");
-            //mudar para exception especifica
+        if(userRequestUpdate.getEmail() != null && !userRequestUpdate.getEmail().isBlank()) {
+            if(userRepository.existsByEmail(userRequestUpdate.getEmail(), userRequestUpdate.getId())) {
+                throw new ValidationException("Email ja cadastrado");
+            }
         }
 
-        user.changeName(userRequestUpdate.name());
-        user.changeEmail(userRequestUpdate.email());
-        user.changePassword(userRequestUpdate.password());
+        if(userRequestUpdate.getName() != null && !userRequestUpdate.getName().isBlank()) {
+            user.changeName(userRequestUpdate.getName());
+        }
+
+        if(userRequestUpdate.getEmail() != null && !userRequestUpdate.getEmail().isBlank()) {
+            user.changeEmail(userRequestUpdate.getEmail());
+        }
+
+        if(userRequestUpdate.getPassword() != null && !userRequestUpdate.getPassword().isBlank()) {
+            user.changePassword(userRequestUpdate.getPassword());
+        }
 
         return UserMapper.toUserResponse(userRepository.update(user));
     }

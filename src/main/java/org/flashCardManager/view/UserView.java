@@ -24,4 +24,18 @@ public class UserView {
         System.out.println(" --> Nome: " + userResponse.name());
         System.out.println(" --> Email: " + userResponse.email());
     }
+
+    public static void menuAcoesAtualizarDadosUser() {
+        System.out.println("\n\n+ ------------------------------ +");
+        System.out.println("| Atualizar Dados                |");
+        System.out.println("----------------------------------");
+        System.out.println("| [1] - Nome                     |");
+        System.out.println("| [2] - Email                    |");
+        System.out.println("| [3] - Senha                    |");
+        System.out.println("| [0] - Voltar                   |");
+        System.out.println("+ ------------------------------ +");
+    }
+
+
+
 }
