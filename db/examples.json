@@ -1,0 +1,48 @@
+[ {
+  "id" : "llk89s30",
+  "meaningId" : "a7355dad",
+  "text" : "He's always taking a dig at me.",
+  "targetToBeHidden" : "dig",
+  "verbTense" : null,
+  "creationDate" : "2026-10-01"
+},
+  {
+    "id" : "009dr2d4",
+    "meaningId" : "a7355dad",
+    "text" : "I know he was just kidding, but it felt like a dig at my work.",
+    "targetToBeHidden" : "dig",
+    "verbTense" : null,
+    "creationDate" : "2026-10-01"
+  },
+  {
+    "id" : "zx215v0b",
+    "meaningId" : "a7355dad",
+    "text" : "She spotted an opportunity to make a dig at the government.",
+    "targetToBeHidden" : "dig",
+    "verbTense" : null,
+    "creationDate" : "2026-10-01"
+  },
+  {
+    "id" : "azs56g7b",
+    "meaningId" : "12gfh0j0",
+    "text" : "They are digging a hole in the garden.",
+    "targetToBeHidden" : "digging",
+    "verbTense" : "PRESENT_CONTINUOUS",
+    "creationDate" : "2026-10-01"
+  },
+  {
+    "id" : "fl092p01",
+    "meaningId" : "12gfh0j0",
+    "text" : "The dog dug under the fence.",
+    "targetToBeHidden" : "dug",
+    "verbTense" : "PAST_SIMPLE",
+    "creationDate" : "2026-10-01"
+  },
+  {
+    "id" : "l83fgh09",
+    "meaningId" : "12gfh0j0",
+    "text" : "The tunnel was dug with the aid of heavy machinery.",
+    "targetToBeHidden" : "dug",
+    "verbTense" : "PAST_PARTICIPLE",
+    "creationDate" : "2026-10-01"
+  }]

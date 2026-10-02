@@ -16,11 +16,12 @@ import java.util.Set;
 public class MeaningApp {
 
     private final MeaningController meaningController;
+    private final ExampleApp exampleApp;
 
-    public MeaningApp(MeaningController meaningController) {
+    public MeaningApp(MeaningController meaningController, ExampleApp exampleApp) {
         this.meaningController = meaningController;
+        this.exampleApp = exampleApp;
     }
-    //exampleApp
 
     public void acoesMeanings(String cardId) {
         int opAcoesMeaning;
@@ -36,7 +37,7 @@ public class MeaningApp {
         switch (opAcoesMeanings) {
             case 1 -> criarMeaning(cardId);
             case 2 -> mostrarMeaningsPorCard(cardId);
-            case 3 -> System.out.println("Acessar um meaning");
+            case 3 -> acessarMeaning(cardId);
             case 0 -> System.out.println("Voltando...");
             default -> System.out.println("Escolha uma opcao valida");
         }
@@ -70,6 +71,36 @@ public class MeaningApp {
         }
     }
 
+    private void acessarMeaning(String cardId) {
+        mostrarMeaningsPorCard(cardId);
 
+        String idMeaning = InputHelper.lerString("Informe o id do card escolhido: ");
 
+        Result<MeaningRequestResponse> result = meaningController.findById(idMeaning);
+
+        if(result.success()) {
+            mostrarAcoesMeaning(result.data());
+        } else {
+            ErrorDetailsView.show(result.errorType(), result.errorMessage());
+        }
+    }
+
+    private void mostrarAcoesMeaning(MeaningRequestResponse meaningRequestResponse) {
+        int opAcoesMeaning;
+
+        do {
+            MeaningView.mostrarMeaning(meaningRequestResponse);
+            MeaningView.mostrarAcoesMeaning();
+            opAcoesMeaning = InputHelper.lerOpcaoInt("Escolha uma acao: ");
+            tratarOpAcoesCard(meaningRequestResponse, opAcoesMeaning);
+        } while (opAcoesMeaning != 0);
+    }
+
+    private void tratarOpAcoesCard(MeaningRequestResponse meaningRequestResponse, int opAcoesMeaning) {
+        switch (opAcoesMeaning) {
+            case 1 -> exampleApp.acoesExamples(meaningRequestResponse.id());
+            case 0 -> System.out.println("Voltando...");
+            default -> System.out.println("Escolha uma opcao valida");
+        }
+    }
 }

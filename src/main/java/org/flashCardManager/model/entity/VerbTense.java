@@ -7,6 +7,7 @@ public enum VerbTense {
     PRESENT_PERFECT_CONTINUOUS,
     PAST_SIMPLE,
     PAST_CONTINUOUS,
+    PAST_PARTICIPLE,
     PAST_PERFECT,
     PAST_PERFECT_CONTINUOUS,
     FUTURE_SIMPLE,
@@ -22,6 +23,7 @@ public enum VerbTense {
             case PRESENT_PERFECT_CONTINUOUS -> "Pres. Perf. Cont.";
             case PAST_SIMPLE -> "Past Simple";
             case PAST_CONTINUOUS -> "Past Cont.";
+            case PAST_PARTICIPLE -> "Past Participle";
             case PAST_PERFECT -> "Past Perf.";
             case PAST_PERFECT_CONTINUOUS -> "Past Perf. Cont.";
             case FUTURE_SIMPLE -> "Fut. Simple";

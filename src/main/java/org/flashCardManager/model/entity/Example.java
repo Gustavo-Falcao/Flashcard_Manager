@@ -64,8 +64,8 @@ public class Example implements Identifiable {
 
     private void setText(String text) {
         Objects.requireNonNull(text, "Exemplo nao pode ser nulo");
-        if(text.trim().length() < 10)
-            throw new IllegalArgumentException("Exemplo deve ter pelo menos 10 caracteres");
+        if(text.trim().length() < 20)
+            throw new IllegalArgumentException("Exemplo deve ter pelo menos 20 caracteres");
         this.text = text;
     }
 

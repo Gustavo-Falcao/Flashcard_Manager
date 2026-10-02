@@ -7,7 +7,6 @@ import org.flashCardManager.model.dto.exampleDto.ExampleRequestResponse;
 import org.flashCardManager.model.dto.exampleDto.ExampleRequestUpdate;
 import org.flashCardManager.service.ExampleService;
 
-import java.awt.*;
 import java.util.List;
 
 public class ExampleController {

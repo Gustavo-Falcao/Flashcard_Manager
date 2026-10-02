@@ -2,6 +2,7 @@ package org.flashCardManager.view;
 
 import org.flashCardManager.model.dto.cardDto.CardRequestResponse;
 import org.flashCardManager.model.dto.meaningDto.MeaningRequestResponse;
+import org.flashCardManager.model.entity.Context;
 
 import java.util.List;
 
@@ -14,6 +15,29 @@ public class MeaningView {
         System.out.println("| [1] - Criar Meaning            |");
         System.out.println("| [2] - Ver meanings             |");
         System.out.println("| [3] - Acessar um meaning       |");
+        System.out.println("| [0] - Voltar                   |");
+        System.out.println("+ ------------------------------ +");
+    }
+
+    public static void mostrarMeaning(MeaningRequestResponse meaningRequestResponse) {
+        System.out.println("\n\n+ ------------------------------ +");
+        System.out.println("| Meaning                        |");
+        System.out.println("----------------------------------");
+        System.out.println(" --> Definition: " + meaningRequestResponse.definition());
+
+        List<String> contextString = meaningRequestResponse.contexts()
+                        .stream()
+                        .map(Context::toShow)
+                        .toList();
+
+        System.out.println(" --> Contexts: " + contextString);
+    }
+
+    public static void mostrarAcoesMeaning() {
+        System.out.println("\n+ ------------------------------ +");
+        System.out.println("| Acoes do Meaning               |");
+        System.out.println("----------------------------------");
+        System.out.println("| [1] - Acessar examples         |");
         System.out.println("| [0] - Voltar                   |");
         System.out.println("+ ------------------------------ +");
     }

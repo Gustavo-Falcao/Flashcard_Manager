@@ -1,5 +1,6 @@
 package org.flashCardManager.service;
 
+import org.flashCardManager.exceptions.NotFoundException;
 import org.flashCardManager.model.dto.exampleDto.ExampleRequestCreate;
 import org.flashCardManager.model.dto.exampleDto.ExampleRequestResponse;
 import org.flashCardManager.model.dto.exampleDto.ExampleRequestUpdate;
@@ -20,9 +21,8 @@ public class ExampleService {
 
     public ExampleRequestResponse create(ExampleRequestCreate exampleRequestCreate) {
         if(meaningRepository.existsById(exampleRequestCreate.meaningId())) {
-            throw new IllegalArgumentException("Meaning não encontrado");
+            throw new NotFoundException("Meaning não encontrado");
         }
-        //mudar para exception especifica
 
         Example example = new Example.Builder()
                 .meaningId(exampleRequestCreate.meaningId())
@@ -36,8 +36,7 @@ public class ExampleService {
 
     public ExampleRequestResponse update(ExampleRequestUpdate exampleRequestUpdate) {
         Example example = exampleRepository.findById(exampleRequestUpdate.id())
-                .orElseThrow(() -> new IllegalArgumentException("Example not found"));
-        //mudar para exception especifica
+                .orElseThrow(() -> new NotFoundException("Example not found"));
 
         example.changeText(exampleRequestUpdate.text());
         example.changeTargetToBeHidden(exampleRequestUpdate.targetToBeHidden());
@@ -48,8 +47,7 @@ public class ExampleService {
 
     public ExampleRequestResponse findById(String id) {
         Example example = exampleRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Example not found"));
-        //mudar para exception especifica
+                .orElseThrow(() -> new NotFoundException("Example not found"));
 
         return toExampleRequestResponse(example);
     }
@@ -66,6 +64,11 @@ public class ExampleService {
     }
 
     public ExampleRequestResponse toExampleRequestResponse(Example example) {
-        return new ExampleRequestResponse(example.getId(), example.getText(), example.getVerbTense());
+        return new ExampleRequestResponse.Builder()
+                .id(example.getId())
+                .text(example.getText())
+                .targetToBeHidden(example.getTargetToBeHidden())
+                .verbTense(example.getVerbTense())
+                .build();
     }
 }

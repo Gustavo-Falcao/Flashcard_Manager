@@ -9,4 +9,16 @@
   "easeFactor" : 2.5,
   "practiceMode" : "PRACTICE",
   "creationDate" : "2026-10-01"
-} ]
+},
+  {
+    "id" : "12gfh0j0",
+    "cardId" : "7bc4e4cd",
+    "definition" : "To break up and move earth, soil, or sand with a tool, machine or your hands.",
+    "contexts" : [ "VERB" ],
+    "nextReviewDate" : "2026-10-01",
+    "interval" : 0,
+    "repetitions" : 0,
+    "easeFactor" : 2.5,
+    "practiceMode" : "PRACTICE",
+    "creationDate" : "2026-10-01"
+  }]

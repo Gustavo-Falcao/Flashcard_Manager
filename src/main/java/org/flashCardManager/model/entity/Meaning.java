@@ -91,7 +91,7 @@ public class Meaning implements Identifiable {
     private void setDefinition(String definition) {
         Objects.requireNonNull(definition, "Definition nao pode ser nulo");
         if(definition.trim().length() < 20)
-            throw new IllegalArgumentException("Definicao deve ter pelo menos 10 caracteres");
+            throw new IllegalArgumentException("Definicao deve ter pelo menos 20 caracteres");
         this.definition = definition;
     }
 

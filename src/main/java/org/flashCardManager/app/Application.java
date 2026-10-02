@@ -39,6 +39,7 @@ public class Application {
     private final MeaningRepository meaningRepository;
 
     //Instancias Example
+    private final ExampleApp exampleApp;
     private final ExampleController exampleController;
     private final ExampleService exampleService;
     private final ExampleRepository exampleRepository;
@@ -78,7 +79,8 @@ public class Application {
         exampleController = new ExampleController(exampleService);
         authController = new AuthController(authService);
 
-        meaningApp = new MeaningApp(meaningController);
+        exampleApp = new ExampleApp(exampleController);
+        meaningApp = new MeaningApp(meaningController, exampleApp);
         cardApp = new CardApp(cardController, meaningApp);
         deckApp = new DeckApp(deckController, cardApp);
         userApp = new UserApp(userController, deckApp);
